@@ -1,0 +1,70 @@
+@font-face {
+    font-family: zombie;
+    src: url('fonts/zombie_font.ttf');
+}
+@font-face {
+    font-family: diediedie;
+    src: url('fonts/diediedie_font.TTF');
+}
+@font-face {
+    font-family: happy_font;
+    src: url('fonts/happy_font.ttf');
+}
+
+body {
+    background-color: black;
+}
+.grid {
+    left: 30px;
+    position: absolute;
+    border-radius: 3px;
+    border: solid black;
+    display: table;
+    box-shadow: 0 0 0 .2em rgb(80, 242, 4);
+    border-bottom-color: red;
+}
+.block {
+    position: absolute;
+    width: 100px; 
+    height: 5px;
+    border-radius: 2px;
+    background-color: #f000ff;
+}
+.user {
+    position: absolute;
+    border-radius: 5px;
+    width: 100px;
+    height: 10px;
+    background-color: #4deeea;
+}
+.ball {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 10px;
+    background-color: rgb(255, 13, 0);
+}
+
+#message {
+    position: absolute;
+    width: 300px;
+    height: 100px;
+    left : 140px;
+    bottom : 80px;
+    font-size: 80px;
+    font-family: zombie;
+    color: rgb(59, 6, 6);
+}
+
+#reset {
+    position: absolute;
+    width: 150px;
+    height: 40px;
+    left: 205px;
+    bottom: 50px;
+    border-radius: 5px;
+    font-family: diediedie;
+    font-size: larger;
+    color: white;
+    background-color: rgb(94, 2, 2);
+}
