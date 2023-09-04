@@ -23,10 +23,24 @@ let isUserMovingRight = false;
 let userCurrentPosition = USER_START_POSITION;
 let ballCurrentPosition = BALL_START_POSITION;
 
+function setCachedLevel() {
+  const cachedLevel = localStorage.getItem("cachedLevel");
+  if (cachedLevel) {
+    console.log("found cached level: ", cachedLevel);
+    document.getElementById("level-slider").value = cachedLevel;
+    document.getElementById("level").innerHTML = "Level: " + cachedLevel;
+    ballSpeedMultiplier = 1 + cachedLevel / 5;
+    userSpeedMultiplier = 1 + cachedLevel / 5;
+  }
+}
+setCachedLevel();
+
 function setLevel(value) {
   ballSpeedMultiplier = 1 + value / 5;
   userSpeedMultiplier = 1 + value / 5;
-  document.getElementById("level").innerHTML = 'Level: ' + value;
+  document.getElementById("level").innerHTML = "Level: " + value;
+  console.log("caching level: ", value);
+  localStorage.setItem("cachedLevel", value);
   console.log("Ball Speed: ", ballSpeedMultiplier);
   console.log("User Speed: ", userSpeedMultiplier);
 }
@@ -110,9 +124,8 @@ function resolveKeyup(e) {
   }
 }
 function startGame() {
-  //disable slider
-  document.querySelector('.slider-container').innerHTML = null;
-  document.getElementById('start-instruction').remove();
+  document.querySelector(".slider-container").innerHTML = null;
+  document.getElementById("start-instruction").remove();
   setInitialBallSpeed();
   moveBall();
   isBallStopped = false;
