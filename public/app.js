@@ -125,7 +125,7 @@ function resolveKeyup(e) {
 }
 function startGame() {
   document.querySelector(".slider-container").innerHTML = null;
-  document.getElementById("start-instruction").remove();
+  document.getElementById("start-instruction").innerHTML = null;
   setInitialBallSpeed();
   moveBall();
   isBallStopped = false;
@@ -260,6 +260,10 @@ function endSequence(result) {
   document.removeEventListener("keyup", resolveKeyup);
   isUserMovingLeft = false;
   isUserMovingRight = false;
+
+  document.addEventListener("keydown", (e) => {
+    location.reload();
+  });
   playAgainButton.disabled = false;
   playAgainButton.hidden = false;
 
