@@ -7,8 +7,11 @@
 
 ### Features ToDo
 
-- Allow user to adjust speed/difficulty
-- Improve UI design
+- ~~Allow user to adjust speed/difficulty~~
+- Cache the speed/difficulty
+- LeaderBoard 
+- ~~Improve UI design~~
 - Store complete game state in an object
 - Add logic for interaction with side of block
+
 

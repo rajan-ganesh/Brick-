@@ -23,6 +23,14 @@ let isUserMovingRight = false;
 let userCurrentPosition = USER_START_POSITION;
 let ballCurrentPosition = BALL_START_POSITION;
 
+function setLevel(value) {
+  ballSpeedMultiplier = 1 + value / 5;
+  userSpeedMultiplier = 1 + value / 5;
+  document.getElementById("level").innerHTML = 'Level: ' + value;
+  console.log("Ball Speed: ", ballSpeedMultiplier);
+  console.log("User Speed: ", userSpeedMultiplier);
+}
+
 class Block {
   constructor(xAxis, yAxis) {
     this.bottomLeft = [xAxis, yAxis];
@@ -79,8 +87,7 @@ GRID.appendChild(user);
 document.addEventListener("keydown", resolveKeypress);
 function resolveKeypress(e) {
   if (isBallStopped) {
-    moveBall();
-    isBallStopped = false;
+    startGame();
   }
   switch (e.key) {
     case "ArrowLeft":
@@ -101,6 +108,14 @@ function resolveKeyup(e) {
       isUserMovingRight = false;
       break;
   }
+}
+function startGame() {
+  //disable slider
+  document.querySelector('.slider-container').innerHTML = null;
+  document.getElementById('start-instruction').remove();
+  setInitialBallSpeed();
+  moveBall();
+  isBallStopped = false;
 }
 
 function moveUser() {
@@ -133,11 +148,15 @@ function drawBall() {
 }
 
 //ball movement logic
-let randomizeBallStartDirection = Math.floor(Math.random() - 0.5);
-let xDirection = +1 * ballSpeedMultiplier;
-let yDirection = +1 * ballSpeedMultiplier;
-if (randomizeBallStartDirection === -1) {
-  xDirection = -1 * ballSpeedMultiplier;
+let xDirection;
+let yDirection;
+function setInitialBallSpeed() {
+  let randomizeBallStartDirection = Math.floor(Math.random() - 0.5);
+  xDirection = +1 * ballSpeedMultiplier;
+  yDirection = +1 * ballSpeedMultiplier;
+  if (randomizeBallStartDirection === -1) {
+    xDirection = -1 * ballSpeedMultiplier;
+  }
 }
 
 function moveBall() {
@@ -202,7 +221,10 @@ function checkForCollision() {
   });
 }
 
-var collisionInterval = setInterval(checkForCollision, COLLISION_CHECK_FREQUENCY);
+var collisionInterval = setInterval(
+  checkForCollision,
+  COLLISION_CHECK_FREQUENCY
+);
 
 function endSequence(result) {
   const messageDisplay = document.getElementById("message");
