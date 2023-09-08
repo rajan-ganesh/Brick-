@@ -16,7 +16,6 @@ let ballSpeedMultiplier = 1;
 let userSpeedMultiplier = 1;
 let blockCount = 15;
 let ballAnimationFrame;
-let userAnimationFrame;
 let isBallStopped = true;
 let isUserMovingLeft = false;
 let isUserMovingRight = false;
@@ -74,7 +73,6 @@ const blocks = [
 
 function addBlocks() {
   blocks.forEach((blockObject) => {
-    console.log("here");
     const block = document.createElement("div");
     block.classList.add("block");
     let bottomLeft = blockObject.bottomLeft;
@@ -253,6 +251,11 @@ function endSequence(result) {
     playAgainButton.style.fontFamily = "happy_font";
   } else if (result == "lose") {
     messageDisplay.innerHTML = "Game Over";
+
+    //Allow quick restart
+    document.addEventListener("keydown", (e) => {
+      location.reload();
+    });
   }
   cancelAnimationFrame(ballAnimationFrame);
   clearInterval(collisionInterval);
@@ -261,9 +264,6 @@ function endSequence(result) {
   isUserMovingLeft = false;
   isUserMovingRight = false;
 
-  document.addEventListener("keydown", (e) => {
-    location.reload();
-  });
   playAgainButton.disabled = false;
   playAgainButton.hidden = false;
 

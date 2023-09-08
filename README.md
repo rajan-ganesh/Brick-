@@ -13,4 +13,7 @@
 - ~~Improve UI design~~
 - Store complete game state in an object
 - Add logic for interaction with side of block
+- Fix bug where user goes off screen at high speeds
+- Invalidate current cache on new deploys
+- ~~Enable quick restart with keyboard~~ -
 
