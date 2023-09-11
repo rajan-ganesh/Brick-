@@ -1,3 +1,5 @@
+import { submitScore } from "./scores.js";
+
 const GRID = document.querySelector(".grid");
 const COLLISION_CHECK_FREQUENCY = 10;
 const BLOCK_WIDTH = 100;
@@ -21,27 +23,36 @@ let isUserMovingLeft = false;
 let isUserMovingRight = false;
 let userCurrentPosition = USER_START_POSITION;
 let ballCurrentPosition = BALL_START_POSITION;
+let currentLevel = 0;
 
+const levelSlider = document.getElementById("level-slider");
 function setCachedLevel() {
   const cachedLevel = localStorage.getItem("cachedLevel");
   if (cachedLevel) {
-    console.log("found cached level: ", cachedLevel);
-    document.getElementById("level-slider").value = cachedLevel;
+    currentLevel = cachedLevel;
+    levelSlider.value = cachedLevel;
     document.getElementById("level").innerHTML = "Level: " + cachedLevel;
     ballSpeedMultiplier = 1 + cachedLevel / 5;
     userSpeedMultiplier = 1 + cachedLevel / 5;
+  } else {
+    levelSlider.value = 0;
   }
 }
-setCachedLevel();
+if (levelSlider) {
+  setCachedLevel();
+  levelSlider.addEventListener("input", (e) => {
+    setLevel(e.target.value);
+  });
+}
 
 function setLevel(value) {
+  //console.log("changing level to ", value);
   ballSpeedMultiplier = 1 + value / 5;
   userSpeedMultiplier = 1 + value / 5;
   document.getElementById("level").innerHTML = "Level: " + value;
-  console.log("caching level: ", value);
+  //console.log("caching level: ", value);
   localStorage.setItem("cachedLevel", value);
-  console.log("Ball Speed: ", ballSpeedMultiplier);
-  console.log("User Speed: ", userSpeedMultiplier);
+  currentLevel = value;
 }
 
 class Block {
@@ -83,7 +94,9 @@ function addBlocks() {
     GRID.appendChild(block);
   });
 }
-addBlocks();
+if (levelSlider) {
+  addBlocks();
+}
 
 //create user
 function drawUser() {
@@ -98,7 +111,7 @@ GRID.appendChild(user);
 //user movement logic
 document.addEventListener("keydown", resolveKeypress);
 function resolveKeypress(e) {
-  if (isBallStopped) {
+  if (isBallStopped && levelSlider) {
     startGame();
   }
   switch (e.key) {
@@ -121,7 +134,16 @@ function resolveKeyup(e) {
       break;
   }
 }
+
+const leaderboardButton = document.getElementById("view-leaderboard");
+if (leaderboardButton) {
+  leaderboardButton.addEventListener("click", () => {
+    window.location.href = "leaderboard.html";
+  });
+}
 function startGame() {
+  leaderboardButton.disabled = true;
+  leaderboardButton.hidden = true;
   document.querySelector(".slider-container").innerHTML = null;
   document.getElementById("start-instruction").innerHTML = null;
   setInitialBallSpeed();
@@ -132,14 +154,23 @@ function startGame() {
 function moveUser() {
   if (isUserMovingLeft) {
     if (userCurrentPosition[0] > 0) {
-      userCurrentPosition[0] -= 2 * userSpeedMultiplier;
+      userCurrentPosition[0] = Math.max(
+        0,
+        userCurrentPosition[0] - 2 * userSpeedMultiplier
+      );
       drawUser();
     }
   }
   if (isUserMovingRight) {
     if (userCurrentPosition[0] < BOARD_WIDTH - BLOCK_WIDTH) {
-      userCurrentPosition[0] += 2 * userSpeedMultiplier;
-      user.style.left = userCurrentPosition[0] + "px";
+      if (
+        userCurrentPosition[0] + 2 * userSpeedMultiplier >
+        BOARD_WIDTH - BLOCK_WIDTH
+      ) {
+        userCurrentPosition[0] = BOARD_WIDTH - BLOCK_WIDTH;
+      } else {
+        userCurrentPosition[0] += 2 * userSpeedMultiplier;
+      }
       drawUser();
     }
   }
@@ -236,12 +267,19 @@ var collisionInterval = setInterval(
   checkForCollision,
   COLLISION_CHECK_FREQUENCY
 );
+const nameInputBox = document.getElementById("name-input");
 
 function endSequence(result) {
+  leaderboardButton.disabled = false;
+  leaderboardButton.hidden = false;
+
   const messageDisplay = document.getElementById("message");
   const playAgainButton = document.getElementById("reset");
+  const submitScoreButton = document.getElementById("submit-score");
+  const nameSubmitButton = document.getElementById("name-submit");
 
   if (result === "win") {
+    setCacheHighscore();
     messageDisplay.style.fontFamily = "happy_font";
     messageDisplay.style.fontSize = "50px";
     messageDisplay.innerHTML = "You Win !";
@@ -249,7 +287,42 @@ function endSequence(result) {
 
     playAgainButton.style.backgroundColor = "#ffaed7";
     playAgainButton.style.fontFamily = "happy_font";
+    playAgainButton.style.left = "120px";
+
+    submitScoreButton.disabled = false;
+    submitScoreButton.hidden = false;
+
+    submitScoreButton.addEventListener("click", function () {
+      messageDisplay.innerHTML = null;
+      playAgainButton.disabled = true;
+      playAgainButton.hidden = true;
+
+      submitScoreButton.disabled = true;
+      submitScoreButton.hidden = true;
+
+      nameInputBox.disabled = false;
+      nameInputBox.hidden = false;
+
+      leaderboardButton.hidden = true;
+      leaderboardButton.disabled = true;
+
+      nameSubmitButton.hidden = false;
+      nameSubmitButton.disabled = false;
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key == "Enter" && nameInputBox.value) {
+        //console.log("enter pressed");
+        nameSubmitButtonPressed();
+      }
+    });
+    nameSubmitButton.addEventListener("click", function () {
+      if (nameInputBox.value) {
+        nameSubmitButtonPressed();
+      }
+    });
   } else if (result == "lose") {
+    leaderboardButton.style.fontFamily = "diediedie";
+
     messageDisplay.innerHTML = "Game Over";
 
     //Allow quick restart
@@ -270,4 +343,23 @@ function endSequence(result) {
   playAgainButton.addEventListener("click", () => {
     location.reload();
   });
+}
+function setCacheHighscore() {
+  const currentHighscore = localStorage.getItem("cachedHighscore");
+  if (!currentHighscore || currentHighscore < currentLevel) {
+    //console.log("Setting new Cached High score");
+    window.alert(
+      "You set a new PERSONAL BEST! Ensure you SUBMIT SCORE to be displayed on the leaderboard!"
+    );
+    localStorage.setItem("cachedHighscore", currentLevel);
+  }
+}
+
+function nameSubmitButtonPressed() {
+  const name = nameInputBox.value;
+  nameInputBox.disabled = true;
+  nameInputBox.hidden = true;
+
+  submitScore(currentLevel, name);
+  window.location.href = "leaderboard.html";
 }

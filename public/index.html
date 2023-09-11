@@ -8,6 +8,7 @@
   <body>
     <div class="grid">
       <div id="message"></div>
+      <button id="view-leaderboard">Leaderboard</button>
       <div id="start-instruction">Press ← or → to Start</div>
       <div class="slider-container">
         Select Level
@@ -17,12 +18,17 @@
           min="0"
           max="100"
           value="0"
-          oninput="setLevel(this.value)"
         />
       </div>
       <button id="reset" disabled hidden>Play Again</button>
+      <button id="submit-score" disabled hidden>Submit Score</button>
       <div id="level">Level: 0</div>
+      <div id="submit-popup">
+        <input id = "name-input" type = "text" placeholder="Enter Name Here" disabled hidden>
+        <button id = "name-submit" disabled hidden>Submit</button>
+      </div>
     </div>
-    <script src="app.js" async defer></script>
+    <script type="module" src="app.js"></script>
+    <script type="module" src="scores.js"></script>
   </body>
 </html>

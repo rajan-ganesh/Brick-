@@ -1,0 +1,115 @@
+@font-face {
+  font-family: happy_font;
+  src: url("fonts/happy_font.ttf");
+}
+body {
+  width: 100vw;
+  height: 50vh;
+  overflow: hidden;
+  transform: scale(2);
+  overflow-x: hidden;
+  transform-origin: top left;
+  background-color: black;
+  display: flex;
+  align-items: center;
+}
+.grid {
+  left: 30px;
+  position: absolute;
+  border-radius: 3px;
+  border: solid black;
+  display: table;
+  box-shadow: 0 0 0 0.2em rgb(80, 242, 4);
+  border-bottom-color: red;
+}
+#leaders-and-scores {
+  display: flex;
+  flex-direction: row;
+}
+#leaders {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+#leaderboard-message {
+  color: rgb(213, 19, 19);
+  font-family: happy_font;
+  text-align: center;
+  margin-top: 10px;
+  font-size: larger;
+}
+.score {
+  flex: 1;
+  margin-left: 60px;
+  margin-top: 10px;
+  font-family: happy_font;
+  font-size: 16px;
+  color: #1f1a5a;
+}
+#score0,
+#leader0 {
+  color: rgb(255, 0, 0);
+}
+#score1,
+#leader1 {
+  color: rgb(253, 177, 1);
+}
+#score2,
+#leader2 {
+  color: #00ff55;
+}
+.leader-score {
+  flex: 1;
+  color: #2ec9ba;
+  background-color: black;
+  margin-left: 80px;
+  margin-top: 10px;
+  font-family: happy_font;
+  font-size: 16px;
+}
+#your-high {
+  position: absolute;
+  margin-left: 100px;
+  color: white;
+  right: 40px;
+  top: 80px;
+  font-family: happy_font;
+  font-size: small;
+  color: #1042af;
+}
+#your-high-score {
+  position: absolute;
+  margin-left: 100px;
+  color: white;
+  right: 40px;
+  top: 120px;
+  font-family: happy_font;
+  font-size: 70px;
+  color: #1042af;
+}
+.dotted-line {
+  position: absolute;
+  color: white;
+  width: 40px;
+  height: 85%;
+  right: 160px;
+  bottom: 5px;
+  background: transparent;
+  border-left: 2px dashed rgb(28, 28, 28);
+}
+#back {
+  position: absolute;
+  width: 120px;
+  height: 40px;
+  right: 30px;
+  bottom: 10px;
+  border-radius: 5px;
+  font-family: happy_font;
+  font-size: large;
+  color: white;
+  background-color: #100d37;
+  line-height: 2.5;
+}
+#back:hover {
+  cursor: pointer;
+}

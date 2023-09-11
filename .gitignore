@@ -65,5 +65,8 @@ node_modules/
 # dotenv environment variables file
 .env
 
+#firebase API key
+public/firebaseConfig.js
+
 .DS_Store
 public/.DS_Store

@@ -1,136 +1,196 @@
 @font-face {
-    font-family: zombie;
-    src: url('fonts/zombie_font.ttf');
+  font-family: zombie;
+  src: url("fonts/zombie_font.ttf");
 }
 @font-face {
-    font-family: diediedie;
-    src: url('fonts/diediedie_font.TTF');
+  font-family: diediedie;
+  src: url("fonts/diediedie_font.TTF");
 }
 @font-face {
-    font-family: happy_font;
-    src: url('fonts/happy_font.ttf');
+  font-family: happy_font;
+  src: url("fonts/happy_font.ttf");
 }
 
 body {
-    width: 100vw;
-    height: 50vh;
-    overflow: hidden;
-    transform: scale(2);
-    overflow-x: hidden;
-    transform-origin: top left;
-    background-color: black;
-    display: flex;
-    align-items: center;
+  width: 100vw;
+  height: 50vh;
+  overflow: hidden;
+  transform: scale(2);
+  overflow-x: hidden;
+  transform-origin: top left;
+  background-color: black;
+  display: flex;
+  align-items: center;
 }
 .grid {
-    left: 30px;
-    position: absolute;
-    border-radius: 3px;
-    border: solid black;
-    display: table;
-    box-shadow: 0 0 0 .2em rgb(80, 242, 4);
-    border-bottom-color: red;
+  left: 30px;
+  position: absolute;
+  border-radius: 3px;
+  border: solid black;
+  display: table;
+  box-shadow: 0 0 0 0.2em rgb(80, 242, 4);
+  border-bottom-color: red;
 }
 .block {
-    position: absolute;
-    width: 100px; 
-    height: 5px;
-    border-radius: 2px;
-    background-color: #f000ff;
+  position: absolute;
+  width: 100px;
+  height: 5px;
+  border-radius: 2px;
+  background-color: #f000ff;
 }
 .user {
-    position: absolute;
-    border-radius: 5px;
-    width: 100px;
-    height: 10px;
-    background-color: #4deeea;
+  position: absolute;
+  border-radius: 5px;
+  width: 100px;
+  height: 10px;
+  background-color: #4deeea;
 }
 .ball {
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
-    background-color: rgb(255, 13, 0);
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: rgb(255, 13, 0);
 }
 
 #message {
-    position: absolute;
-    width: 300px;
-    height: 100px;
-    left : 140px;
-    bottom : 80px;
-    font-size: 80px;
-    font-family: zombie;
-    color: rgb(59, 6, 6);
+  position: absolute;
+  width: 300px;
+  height: 100px;
+  left: 140px;
+  bottom: 80px;
+  font-size: 80px;
+  font-family: zombie;
+  color: rgb(59, 6, 6);
 }
 #start-instruction {
-    position: absolute;
-    color: white;
-    right: 10px;
-    bottom: 15px;
-    font-family: happy_font;
+  position: absolute;
+  color: white;
+  right: 10px;
+  bottom: 15px;
+  font-family: happy_font;
 }
 #reset {
-    position: absolute;
-    width: 150px;
-    height: 40px;
-    left: 205px;
-    bottom: 50px;
-    border-radius: 5px;
-    font-family: diediedie;
-    font-size: larger;
-    color: white;
-    background-color: rgb(94, 2, 2);
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  left: 205px;
+  bottom: 50px;
+  border-radius: 5px;
+  font-family: diediedie;
+  font-size: larger;
+  color: white;
+  background-color: rgb(94, 2, 2);
+  line-height: 2;
+}
+#reset:hover {
+  cursor: pointer;
+}
+#submit-score {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  right: 120px;
+  bottom: 50px;
+  border-radius: 5px;
+  font-family: happy_font;
+  font-size: larger;
+  color: white;
+  background-color: #55b4ac;
+  line-height: 2;
+}
+#submit-score {
+  cursor: pointer;
+}
+#view-leaderboard {
+  position: absolute;
+  width: 150px;
+  height: 40px;
+  left: 205px;
+  bottom: 200px;
+  border-radius: 5px;
+  font-family: happy_font;
+  font-size: larger;
+  color: white;
+  background-color: #120f3c;
+  line-height: 2.4;
+}
+#view-leaderboard:hover {
+  cursor: pointer;
 }
 
 #level {
-    position: absolute;
-    width: 80px;
-    height: 20px;
-    left: 10px;
-    bottom: 10px;
-    color: 	#dcf3ff;
-    font-family: happy_font;
+  position: absolute;
+  width: 80px;
+  height: 20px;
+  left: 10px;
+  bottom: 10px;
+  color: #dcf3ff;
+  font-family: happy_font;
 }
 
 .slider-container {
-    position: absolute;
-    height: 40px;
-    width: 360px;
-    left: 100px;
-    bottom: 110px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: #ff48a5;
-    font-family: happy_font;
-    font-size: xx-large;
+  position: absolute;
+  height: 40px;
+  width: 360px;
+  left: 100px;
+  bottom: 110px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ff48a5;
+  font-family: happy_font;
+  font-size: xx-large;
 }
 
 #level-slider {
-    width: 280px;
+  width: 280px;
 }
-input[type="range"]{
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    display: block;
-    width: 80%;
-    background-color: #d5d5d5;
-    border-radius: 8px;
-    margin-top: 15px;
-    outline: none;
+input[type="range"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  display: block;
+  width: 80%;
+  background-color: #d5d5d5;
+  border-radius: 8px;
+  margin-top: 15px;
+  outline: none;
 }
-input[type="range"]::-webkit-slider-runnable-track{
-    -webkit-appearance: none;
-    height: 3px;
+input[type="range"]::-webkit-slider-runnable-track {
+  -webkit-appearance: none;
+  height: 3px;
 }
-input[type="range"]::-webkit-slider-thumb{
-    -webkit-appearance: none;
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 20px;
+  width: 3px;
+  background-color: rgb(223, 188, 11);
+  border-radius: 50%;
+  cursor: pointer;
+  margin-top: -9px;
+  border: none;
+}
+#name-input {
+  position: absolute;
+  right: 200px;
+  bottom: 100px;
+  width: 150px;
+  height: 30px;
+  border-radius: 12px;
+  font-size: large;
+  color: white;
+  background-color: transparent;
+  text-align: center;
+}
+#name-submit {
+    position: absolute;
+    right: 240px;
+    bottom: 70px;
+    width: 80px;
     height: 20px;
-    width: 3px;
-    background-color: rgb(223, 188, 11);
-    border-radius: 50%;
+    border-radius: 12px;
+    background-color: rgb(236, 176, 11);
+}
+#name-submit:hover{
     cursor: pointer;
-    margin-top: -9px;
-    border: none;
 }
